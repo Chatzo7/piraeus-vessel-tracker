@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Piraeus Vessel Tracker</title>
+  <meta name="description" content="Live vessel map and port-call statistics for the Port of Piraeus, built on public AIS data.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 L19 21 L12 17 L5 21 Z"/></svg>
+      <div>
+        <h1>Piraeus Vessel Tracker</h1>
+        <p class="subtitle">Live AIS traffic and port calls · Saronic Gulf</p>
+      </div>
+    </div>
+    <div class="status">
+      <span id="mode" class="badge" hidden></span>
+      <span id="updated" class="updated">Loading…</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="map-wrap" aria-label="Vessel map">
+      <div id="map"></div>
+      <div class="legend" id="legend" aria-label="Legend"></div>
+    </section>
+
+    <aside class="panel" aria-label="Port statistics">
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-value" id="k-live">–</span><span class="kpi-label">Vessels in area</span></div>
+        <div class="kpi"><span class="kpi-value" id="k-port">–</span><span class="kpi-label">In port now</span></div>
+        <div class="kpi"><span class="kpi-value" id="k-arr">–</span><span class="kpi-label">Arrivals · 24h</span></div>
+        <div class="kpi"><span class="kpi-value" id="k-dep">–</span><span class="kpi-label">Departures · 24h</span></div>
+      </div>
+
+      <section class="card">
+        <h2>Vessels in area by type</h2>
+        <ul class="bars" id="by-type"></ul>
+      </section>
+
+      <section class="card">
+        <h2>Average time in port <span class="hint">last 7 days</span></h2>
+        <table class="table" id="dwell">
+          <thead><tr><th>Type</th><th class="num">Calls</th><th class="num">Avg stay</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section class="card">
+        <h2>Recent port calls</h2>
+        <ul class="calls" id="calls"></ul>
+      </section>
+
+      <p class="footnote">
+        Port calls count vessels that stop inside the outlined port area; tugs, pilots and
+        small craft are left out of the statistics. Data: AIS via
+        <a href="https://aisstream.io" target="_blank" rel="noopener">AISStream.io</a>.
+      </p>
+    </aside>
+  </main>
+
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
